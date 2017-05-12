@@ -1,49 +1,5 @@
-"""
-Connector to the AMIV SugarCRM
-==============================
+"""AMIVCRM Client using suds-jurko"""
 
-SugarCRM provides a SOAP and a REST api. At the time this tool was written
-the REST api was unfortunately not available. Therefore SOAP is used.
-
-The python library suds is used, more exactly the fork by
-`jurko <https://bitbucket.org/jurko/suds>`.
-
-Usage
------
-
-You will need a soap username and password. You can find them in the
-`AMIV wiki <intern.amiv.ethz.ch/wiki/SugarCRM#SOAP>`.
-
-.. code:: python
-	CRM = AMIVCRMConnector(username, password)
-
-	# Get Companies
-	CRM.get('Accounts')
-
-	# Select only certain fields
-	# Filter and order with SQL statements
-	CRM.get('Accounts',
-	        # Only companies participating in job fair
-	        query="accounts_cstm.messeteilnahme_c = 1",
-	        # Order alphabetically
-	        order_by="accounts.name",
-	        # Return Name and ID only
-	        select_fields=['name', 'id'])
-
-	# Get a single company by id
-	CRM.getentry('Accounts',
-	             '505404b1-1851-1472-d63e-4d829377e30b',
-	             # Optional: Limit the returned fields as well
-	             select_fields=['name'])
-
-	# Get a company only if  modified after given date
-	id = '505404b1-1851-1472-d63e-4d829377e30b'
-	date = '2016-03-20 08:05:39'
-	# Be careful to use quotes in query
-	query = ("accounts.id = '%s' and "
-	         "accounts.date_modified >= '%s'" % (id, date))
-	CRM.get('Accounts', query=query)
-"""
 from contextlib import contextmanager
 import html
 from suds.client import Client as SOAPClient
@@ -52,9 +8,9 @@ URL = "https://people.ee.ethz.ch/~amivkt/crm/service/v2/soap.php?wsdl"
 APPNAME = "AMIV Kontakt: Internal: Customer Relationship Management"
 
 class AMIVCRM(object):
-    """Connector providing easy access to entries and entry lists.
+    """Client providing easy access to entries and entry lists.
 
-    Args:
+    Attributes:
         username (str): the soap username
         password (str): the soap password
         url (str): CRM url
@@ -70,9 +26,9 @@ class AMIVCRM(object):
         """Get list of module entries matching the query.
 
         Args:
-            module_name (str): CRM module
-            query (str): SQL query string
-            order_by (str): SQL order by string
+            module_name (str): CRM module, e.g. 'Accounts' for companies
+            query (str): SQL query
+            order_by (str): SQL order by
             select_fields (list): Fields the CRM should return
 
         Yields:
@@ -92,15 +48,15 @@ class AMIVCRM(object):
 
 
     def getentry(self, module_name, entry_id, select_fields=None):
-        """Get list of module entries matching the query.
+        """Get single entry specified by id.
 
         Args:
-            id: Entry id
-            module_name (str): crm module
-            elect_fields (list): fields the crm should return
+            entry_id (str): The ID of the entry (duh.)
+            module_name (str): CRM module, e.g. 'Accounts' for companies
+            elect_fields (list): Fields the crm should return
 
-        Yields:
-            dict: One entry after another
+        Returns:
+            dict: Result, None if nothing found.
         """
         with self._session() as session_id:
             response = self.client.service.get_entry(
