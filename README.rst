@@ -17,8 +17,10 @@ Usage
 
 You will need a soap username and password. You can find them in the
 `AMIV wiki <intern.amiv.ethz.ch/wiki/SugarCRM#SOAP>`_.
+After you got the credentials, its as easy as this:
 
 .. code-block:: python
+
 	from amivcrm import AMIVCRM
 
 	CRM = AMIVCRM(username, password)
@@ -37,15 +39,14 @@ You will need a soap username and password. You can find them in the
 	        select_fields=['name', 'id'])
 
 	# Get a single company by id
-	CRM.getentry('Accounts',
-	             '505404b1-1851-1472-d63e-4d829377e30b',
+	CRM.getentry('Accounts', '505404b1-1851-1472-d63e-4d829377e30b',
 	             # Optional: Limit the returned fields as well
 	             select_fields=['name'])
 
 	# Get a company only if  modified after given date
-	id = '505404b1-1851-1472-d63e-4d829377e30b'
+	entry_id = '505404b1-1851-1472-d63e-4d829377e30b'
 	date = '2016-03-20 08:05:39'
 	# Be careful to use quotes in query
-	query = ("accounts.id = '%s' and "
-	         "accounts.date_modified >= '%s'" % (id, date))
+	query = ("accounts.id = '%s' and accounts.date_modified >= '%s'"
+			 % (entry_id, date))
 	CRM.get('Accounts', query=query)
