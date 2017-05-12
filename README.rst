@@ -5,7 +5,7 @@ SugarCRM provides a SOAP and a REST api. At the time this tool was written
 the REST api was unfortunately not available. Therefore SOAP is used.
 
 The python library suds is used, more exactly the fork by
-`jurko <https://bitbucket.org/jurko/suds>`.
+`jurko <https://bitbucket.org/jurko/suds>`_.
 
 Installation
 ------------
@@ -16,9 +16,9 @@ Usage
 -----
 
 You will need a soap username and password. You can find them in the
-`AMIV wiki <intern.amiv.ethz.ch/wiki/SugarCRM#SOAP>`.
+`AMIV wiki <intern.amiv.ethz.ch/wiki/SugarCRM#SOAP>`_.
 
-.. code::python
+.. code-block:: python
 	from amivcrm import AMIVCRM
 
 	CRM = AMIVCRM(username, password)
