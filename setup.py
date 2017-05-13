@@ -12,5 +12,7 @@ setup(
     description="A simple connector to the AMIV SugarCRM",
     long_description=DESCRIPTION,
     packages=['amivcrm'],
-    install_requires=['suds-jurko>=0.6']
+    install_requires=['suds-jurko>=0.6'],
+    url="https://github.com/NotSpecial/amivcrm",
+    download_url="https://github.com/NotSpecial/amivcrm/releases/tag/0.1"
 )
