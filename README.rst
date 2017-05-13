@@ -10,7 +10,8 @@ The python library suds is used, more exactly the fork by
 Installation
 ------------
 
-TODO
+.. code-block:: bash
+	pip install amivcrm
 
 Usage
 -----
