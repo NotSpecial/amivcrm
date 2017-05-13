@@ -7,12 +7,12 @@ with open("README.rst", "r") as file:
 
 setup(
     name="amivcrm",
-    version='0.1',
+    version='0.2',
     author='Alexander Dietmüller',
     description="A simple connector to the AMIV SugarCRM",
     long_description=DESCRIPTION,
     packages=['amivcrm'],
     install_requires=['suds-jurko>=0.6'],
     url="https://github.com/NotSpecial/amivcrm",
-    download_url="https://github.com/NotSpecial/amivcrm/releases/tag/0.1"
+    download_url="https://github.com/NotSpecial/amivcrm/releases/tag/0.2"
 )
