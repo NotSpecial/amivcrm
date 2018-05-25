@@ -1,3 +1,6 @@
+NOTE: The development of this tool has been moved to the
+`ETH gitlab <https://gitlab.ethz.ch/amiv/kontakt/amiv-crm-connector>`_!
+
 Connector to the AMIV SugarCRM
 ==============================
 
